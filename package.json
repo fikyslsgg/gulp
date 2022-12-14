@@ -1,0 +1,23 @@
+{
+  "name": "gulp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "gulp": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fikyslsgg/gulp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fikyslsgg/gulp/issues"
+  },
+  "homepage": "https://github.com/fikyslsgg/gulp#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
+}
