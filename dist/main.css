@@ -315,6 +315,18 @@ header {
   color: black;
 }
 
+h1 {
+  color: red;
+}
+
+.hello {
+  color: aqua;
+}
+
 .menu:hover {
   opacity: 0.5;
+}
+
+.hello {
+  color: aqua;
 }
