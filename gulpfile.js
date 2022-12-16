@@ -5,6 +5,8 @@ const concat = require('gulp-concat');
 const browserSync = require("browser-sync").create();
 const reload = browserSync.reload;
 const sassGlob = require('gulp-sass-glob');
+const autoprefixer = require('gulp-autoprefixer');
+const px2rem = require('gulp-smile-px2rem');
 
 
 
@@ -28,6 +30,11 @@ task("styles", () => {
   .pipe(concat('main.scss'))
   .pipe(sassGlob())
   .pipe(sass().on('error', sass.logError))
+  .pipe(px2rem())
+  .pipe(autoprefixer({
+    browsers: ['last 2 versions'],
+    cascade: false
+  }))
   .pipe(dest('dist'));
 });
 
