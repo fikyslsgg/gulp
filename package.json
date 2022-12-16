@@ -19,6 +19,8 @@
   "homepage": "https://github.com/fikyslsgg/gulp#readme",
   "devDependencies": {
     "gulp": "^4.0.2",
-    "gulp-rm": "^2.0.0"
+    "gulp-rm": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.56.2"
   }
 }
