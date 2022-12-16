@@ -4,6 +4,7 @@ const sass = require('gulp-sass')(require('sass'));
 const concat = require('gulp-concat');
 const browserSync = require("browser-sync").create();
 const reload = browserSync.reload;
+const sassGlob = require('gulp-sass-glob');
 
 
 
@@ -25,6 +26,7 @@ const styles = [
 task("styles", () => {
   return src(styles)
   .pipe(concat('main.scss'))
+  .pipe(sassGlob())
   .pipe(sass().on('error', sass.logError))
   .pipe(dest('dist'));
 });
