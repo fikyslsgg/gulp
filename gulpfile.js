@@ -1,18 +1,21 @@
-const { src, dest, task } = require('gulp')
+const { src, dest, task, series } = require('gulp')
 const rm = require('gulp-rm');
+const sass = require('gulp-sass')(require('sass'));
 
-const files = [
-  'src/styles/one.scss',
-  'src/styles/two.scss'
-]
+
 
 task('clean', () => {
-  return src('dist/**/*', { read: false })
-    .pipe(rm())
-})
+  return src('dist/**/*', { read: false }).pipe(rm())
+});
 
-function copy() {
-  return src(files).pipe(dest('dist'))
-}
+task("copy", () => {
+  return src("src/styles/*.scss").pipe(dest("dist"));
+});
 
-exports.copy = copy
+task("styles", () => {
+  return src('src/styles/main.scss')
+  .pipe(sass().on('error', sass.logError))
+  .pipe(dest('dist'));
+});
+
+task("default", series("clean", "styles"))
