@@ -19,10 +19,12 @@
   "homepage": "https://github.com/fikyslsgg/gulp#readme",
   "devDependencies": {
     "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-rm": "^2.0.0",
     "gulp-sass": "^5.1.0",
     "gulp-sass-glob": "^1.1.0",
+    "gulp-smile-px2rem": "^0.1.0",
     "sass": "^1.56.2"
   },
   "dependencies": {
