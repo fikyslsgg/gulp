@@ -311,6 +311,10 @@ header {
   color: #000;
 }
 
+.new {
+  color: black;
+}
+
 .menu:hover {
   opacity: 0.5;
 }
