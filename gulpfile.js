@@ -8,6 +8,8 @@ const sassGlob = require('gulp-sass-glob');
 const autoprefixer = require('gulp-autoprefixer');
 const px2rem = require('gulp-smile-px2rem');
 const gcmq = require('gulp-group-css-media-queries');
+const cleanCSS = require('gulp-clean-css');
+ 
 
 
 
@@ -37,6 +39,7 @@ task("styles", () => {
     cascade: false
   }))
   .pipe(gcmq())
+  .pipe(cleanCSS())
   .pipe(dest('dist'));
 });
 
