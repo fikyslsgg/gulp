@@ -1,3 +1,8 @@
-const a = 11;
-const a = 22;
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1vZHVsZS1hLmpzIiwibW9kdWxlLWIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUNBQSIsImZpbGUiOiJtYWluLmpzIiwic291cmNlc0NvbnRlbnQiOlsiY29uc3QgYSA9IDExOyIsImNvbnN0IGEgPSAyMjsiXX0=
+"use strict";
+
+var a = 11;
+var isEven = function isEven(num) {
+  return num = 11;
+};
+isEven(a);
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1vZHVsZS1iLmpzIl0sIm5hbWVzIjpbImEiLCJpc0V2ZW4iLCJudW0iXSwibWFwcGluZ3MiOiI7O0FBQUEsSUFBQUEsQ0FBQSxHQUFBLEVBQUE7QUFFQSxJQUFBQyxNQUFBLEdBQUEsU0FBQUEsTUFBQSxDQUFBQyxHQUFBO0VBQUEsT0FBQUEsR0FBQSxHQUFBLEVBQUE7QUFBQTtBQUVBRCxNQUFBLENBQUFELENBQUEsQ0FBQSIsImZpbGUiOiJtYWluLmpzIiwic291cmNlc0NvbnRlbnQiOlsiY29uc3QgYSA9IDExO1xyXG5cclxuY29uc3QgaXNFdmVuID0gbnVtID0+IG51bSA9IDExO1xyXG5cclxuaXNFdmVuKGEpOyJdfQ==
