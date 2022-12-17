@@ -46,6 +46,14 @@ task("styles", () => {
   .pipe(dest('dist'));
 });
 
+task('scripts', () => {
+  return src('src/scripts/*.js')
+  .pipe(sourcemaps.init())
+  .pipe(concat('main.js'))
+  .pipe(sourcemaps.write())
+  .pipe(dest('dist'));
+})
+
 task('server',  () => {
 
   browserSync.init({
@@ -59,4 +67,4 @@ task('server',  () => {
 
 watch ('./src/styles/**/*.scss', series('styles'))
 watch ('./src/*.html', series('copy:html'))
-task("default", series("clean", "copy:html", "styles", "server"))
+task("default", series("clean", "copy:html", "styles", "scripts", "server"))
