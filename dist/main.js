@@ -1,0 +1,3 @@
+const a = 11;
+const a = 22;
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1vZHVsZS1hLmpzIiwibW9kdWxlLWIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUNBQSIsImZpbGUiOiJtYWluLmpzIiwic291cmNlc0NvbnRlbnQiOlsiY29uc3QgYSA9IDExOyIsImNvbnN0IGEgPSAyMjsiXX0=
