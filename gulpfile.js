@@ -1,4 +1,4 @@
-const { src, dest, task, series, watch } = require('gulp')
+const { src, dest, task, series, watch, parallel } = require('gulp')
 const rm = require('gulp-rm');
 const sass = require('gulp-sass')(require('sass'));
 const concat = require('gulp-concat');
@@ -14,62 +14,61 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const svgo = require('gulp-svgo');
 const svgSprite = require('gulp-svg-sprite');
+const gulpif = require('gulp-if');
+const env = process.env.NODE_ENV;
 
-
+const {DIST_PATH,SRC_PATH, STYLES_LIBS, JS_LIBS} = require('./gulp.config');
 
 task('clean', () => {
-  return src('dist/**/*', { read: false }).pipe(rm())
+  return src(`${DIST_PATH}/**/*`, { read: false }).pipe(rm())
 });
 
 task("copy:html", () => {
-  return src("src/*.html")
-  .pipe(dest("dist"))
+  return src(`${SRC_PATH}/*.html`)
+  .pipe(dest(DIST_PATH))
   .pipe(reload({stream: true}));
 });
 
-const styles = [
-  'node_modules/normalize.css/normalize.css',
-  'src/styles/main.scss'
-];
-
 task("styles", () => {
-  return src(styles)
-  .pipe(sourcemaps.init())
+  return src([
+    ...STYLES_LIBS,
+    'src/styles/main.scss',
+  ])
+  .pipe(gulpif(env=='dev',sourcemaps.init()))
   .pipe(concat('main.min.scss'))
   .pipe(sassGlob())
   .pipe(sass().on('error', sass.logError))
   .pipe(px2rem())
-  .pipe(autoprefixer({
+  .pipe(gulpif(env=='dev',autoprefixer({
     browsers: ['last 2 versions'],
     cascade: false
-  }))
-  .pipe(gcmq())
-  .pipe(cleanCSS())
-  .pipe(sourcemaps.write())
-  .pipe(dest('dist'))
+  })))
+  .pipe(gulpif(env=='prod',gcmq()))
+  .pipe(gulpif(env=='prod',cleanCSS()))
+  .pipe(gulpif(env=='dev',sourcemaps.write()))
+  .pipe(dest(DIST_PATH))
   .pipe(reload({stream:true}));
 });
 
-const libs = [
-  "node_modules/jquery/dist/jquery.js",
-  'src/scripts/*.js'
-]
-
 task('scripts', () => {
-  return src(libs)
-  .pipe(sourcemaps.init())
+  return src([
+    ...JS_LIBS,
+    'src/scripts/*.js'
+  ])
+  .pipe(gulpif(env=='dev', sourcemaps.init()))
   .pipe(concat('main.min.js'), {newLine: ";"})
-  .pipe(babel({
+  .pipe(gulpif(env=='prod', babel({
     presets: ['@babel/env']
-}))
-  .pipe(uglify())
-  .pipe(sourcemaps.write())
-  .pipe(dest('dist'))
+})))
+  .pipe(gulpif(env=='prod', uglify()))
+  .pipe(gulpif(env=='dev', sourcemaps.write()))
+  .pipe(dest(DIST_PATH))
   .pipe(reload({stream:true}));
 })
 
 task('icons', () => {
-  return src('src/images/icons/*.svg')
+  return src( `${SRC_PATH}/images/icons/*.svg`)       
+    // 'src/images/icons/*.svg'
     .pipe(
       svgo({
       plugins: [
@@ -98,9 +97,23 @@ task('server',  () => {
   });
 });
 
+task('watch', () => {
+  watch ( `./${SRC_PATH}/styles/**/*.scss`, series('styles'));
+  // watch ('./src/styles/**/*.scss', series('styles'));
 
-watch ('./src/styles/**/*.scss', series('styles'));
-watch ('./src/*.html', series('copy:html'));
-watch ('./src/scripts/*.js', series('scripts'));
-watch ('./src/images/icons/*.svg', series('icons'));
-task("default", series("clean", "copy:html", "styles", "scripts","icons", "server"));
+  watch ( `./${SRC_PATH}/*.html`, series('copy:html'));
+  // watch ('./src/*.html', series('copy:html'));
+
+  watch ( `./${SRC_PATH}/scripts/*.js`, series('scripts'));
+  // watch ('./src/scripts/*.js', series('scripts'));
+
+  watch ( `./${SRC_PATH}/images/icons/*.svg`, series('icons'));
+  // watch ('./src/images/icons/*.svg', series('icons'));
+})
+
+task("default", series("clean", parallel("copy:html", "styles", "scripts","icons"),
+    parallel('watch', 'server')
+));
+
+task("build", series("clean", parallel("copy:html", "styles", "scripts","icons"))
+);
